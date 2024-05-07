@@ -14,7 +14,8 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: debug
-      # POSTGRES_DB: debug # name of the database to create
+      POSTGRES_DB: kata-db
+      POSTGRES_USER: debug
     ports:
       - 5432:5432
     volumes:
