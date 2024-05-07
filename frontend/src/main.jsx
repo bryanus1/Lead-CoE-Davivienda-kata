@@ -1,10 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
+// Styles
 import "./index.css";
+
+// Routes
+import { Routes } from "./routes";
+
+import { ContextProvider } from "./contexts";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <h1 className="text-3xl text-red-500">Hola Mundo</h1>
+    <ContextProvider>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </ContextProvider>
   </React.StrictMode>
 );
