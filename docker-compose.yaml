@@ -1,0 +1,51 @@
+volumes:
+  postgresql:
+  postgresql_data:
+  # sonarqube:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  sonarqube-postgresql:
+  sonarqube-postgresql_data:
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: debug
+      # POSTGRES_DB: debug # name of the database to create
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    depends_on:
+      - db-sonarqube
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db-sonarqube:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    logging:
+      driver: "none"
+    ports:
+      - "9000:9000"
+
+  db-sonarqube:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    logging:
+      driver: "none"
+    volumes:
+      - sonarqube-postgresql:/var/lib/postgresql
+      - sonarqube-postgresql_data:/var/lib/postgresql/data
