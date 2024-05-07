@@ -24,21 +24,23 @@ export default function SignInPage() {
       },
       body: JSON.stringify({ username, password }),
     });
+
     const response = await rawResponse.json();
+    if (rawResponse.ok) {
+      setUserId(response.userId);
+      if (response.challengeType === "OTP") {
+        navigate("/challenge/otp");
+      }
 
-    console.log(response);
+      if (response.challengeType === "PRODUCT") {
+        navigate("/challenge/product");
+      }
 
-    setUserId(response.userId);
-    if (response.challengeType === "OTP") {
-      navigate("/challenge/otp");
-    }
-
-    if (response.challengeType === "PRODUCT") {
-      navigate("/challenge/product");
-    }
-
-    if (response.challengeType === "WORD_COMBINATION") {
-      navigate("/challenge/word");
+      if (response.challengeType === "WORD_COMBINATION") {
+        navigate("/challenge/word");
+      }
+    } else {
+      alert(response.message);
     }
   };
 

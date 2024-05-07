@@ -34,10 +34,14 @@ export default function ProductPage() {
 
     const response = await rawResponse.json();
 
-    if (response.passedChallenge) {
-      window.location.assign("http://github.com");
+    if (rawResponse.ok) {
+      if (response.passedChallenge) {
+        window.location.assign("http://github.com");
+      } else {
+        alert("No pasa el reto");
+      }
     } else {
-      alert("No pasa el reto");
+      alert(response.message);
     }
   };
 
