@@ -1,0 +1,10 @@
+{
+  "challenges": [
+    {
+      "userId": 1,
+      "word": "Hola",
+      "phrase": "Con solo un Hola puedes cambiar el Mundo",
+      "key": "Saludo"
+    }
+  ]
+}

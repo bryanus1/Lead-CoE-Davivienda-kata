@@ -1,0 +1,11 @@
+{
+  "challenges": [
+    {
+      "userId": 1,
+      "documentNumber": 2344,
+      "documentType": "CC",
+      "productNumber": 2201,
+      "keyProduct": "PCT"
+    }
+  ]
+}

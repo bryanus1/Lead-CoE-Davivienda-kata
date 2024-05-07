@@ -1,8 +1,9 @@
-import { IUserRepository } from 'src/users/interfaces/users.interfaces';
+import { IUserRepository } from '@/users/interfaces/users.interfaces';
 import { SignInCommand } from './sign-in.command';
 import { IAuthRepository } from '../interfaces/auth.interfaces';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import User from 'src/users/models/users.model';
+import User from '@/users/models/users.model';
+import { challengeType } from '../challenge-type.enum';
 
 @Injectable()
 export class SignInCommandHandler {
@@ -35,7 +36,15 @@ export class SignInCommandHandler {
     }
 
     return {
+      userId: user.id,
       token: 'user logged',
+      challengeType: this.getChallengeType(),
     };
+  }
+
+  private getChallengeType(): challengeType {
+    const values = Object.values(challengeType);
+    const indexRandom = Math.floor(Math.random() * values.length);
+    return values[indexRandom] as challengeType;
   }
 }
